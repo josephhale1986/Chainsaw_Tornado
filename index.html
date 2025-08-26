@@ -1,0 +1,23 @@
+<!doctype html>
+<html lang="en"><head><meta charset="utf-8">
+<meta name="viewport" content="width=device-width,initial-scale=1,user-scalable=no">
+<title>Chainsaw Tornado</title>
+<link rel="manifest" href="manifest.webmanifest"><link rel="icon" href="favicon.png">
+<style>
+body,html{margin:0;height:100%;background:#0e1620;color:#e6f2ff;font-family:sans-serif;text-align:center}
+#menu{position:absolute;top:0;left:0;right:0;bottom:0;background:url('assets/menu.png') center/cover no-repeat;display:flex;flex-direction:column;align-items:center;justify-content:center}
+.btn{background:rgba(0,0,0,.6);border:2px solid #8fd3ff;color:#e6f2ff;font-size:24px;padding:12px 20px;margin:8px;border-radius:12px;cursor:pointer}
+canvas{display:none}
+</style></head>
+<body>
+<div id="menu">
+  <h1 style="font-size:64px;text-shadow:2px 2px 8px #000">CHAINSAW TORNADO</h1>
+  <button class="btn" id="startBtn">Start Game</button>
+  <button class="btn" id="scoresBtn">High Scores</button>
+</div>
+<canvas id="game" width="960" height="540"></canvas>
+<audio id="bgmMain" src="assets/bgm_main.wav" preload="auto" loop></audio>
+<audio id="bgmBoss" src="assets/bgm_boss.wav" preload="auto" loop></audio>
+<script src="game.js"></script>
+<script>if('serviceWorker' in navigator){navigator.serviceWorker.register('service-worker.js');}</script>
+</body></html>
