@@ -1,0 +1,57 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1, user-scalable=no">
+  <title>Chainsaw Tornado</title>
+  <link rel="manifest" href="manifest.webmanifest">
+  <link rel="icon" href="favicon.png">
+  <style>
+    :root { --bg:#0e1620; --fg:#e6f2ff; --accent:#8fd3ff; --muted:#a3b9cc; }
+    html,body{margin:0;height:100%;background:var(--bg);color:var(--fg);font-family: system-ui, -apple-system, Segoe UI, Roboto, Helvetica, Arial, sans-serif;}
+    #wrap{display:flex;align-items:center;justify-content:center;min-height:100%;padding:16px;gap:16px;flex-direction:column;}
+    canvas{background:linear-gradient(#1a2330,#0e1620);border:2px solid #2a3b52;border-radius:16px;box-shadow:0 8px 30px rgba(0,0,0,0.4);touch-action:none;}
+    .btn{background:#152234;border:1px solid #2a3b52;color:var(--fg);padding:10px 16px;border-radius:12px;cursor:pointer;font-weight:700;letter-spacing:0.3px}
+    .btn:hover{border-color:var(--accent)}
+    .row{display:flex;gap:10px;flex-wrap:wrap;justify-content:center}
+    .title{font-size: clamp(20px, 3vw, 36px); font-weight:900;color:var(--accent); text-transform:uppercase; letter-spacing:2px}
+    .muted{color:var(--muted);font-size:14px}
+    #hud{display:flex;gap:12px;justify-content:center;align-items:center}
+    #mobile{display:none;gap:10px;align-items:center;justify-content:center}
+    .stick{width:110px;height:110px;border-radius:50%;background:#121a26;border:2px solid #2a3b52;position:relative}
+    .stick .nub{width:50px;height:50px;border-radius:50%;background:#26364d;position:absolute;left:30px;top:30px}
+    .abtn{width:64px;height:64px;border-radius:50%;background:#22324a;border:2px solid #2a3b52;display:flex;align-items:center;justify-content:center;font-weight:900}
+    @media (max-width: 900px){
+      #mobile{display:flex}
+    }
+  </style>
+</head>
+<body>
+<div id="wrap">
+  <div class="title">Chainsaw Tornado</div>
+  <canvas id="game" width="960" height="540"></canvas>
+  <div id="hud">
+    <button class="btn" id="startBtn">Start</button>
+    <button class="btn" id="pauseBtn">Pause</button>
+    <button class="btn" id="resetBtn">Reset</button>
+    <div class="muted" id="hs"></div>
+  </div>
+
+  <div id="mobile">
+    <div class="stick" id="stick"><div class="nub" id="nub"></div></div>
+    <div class="abtn" id="attackBtn">A</div>
+  </div>
+
+  <div class="muted">Desktop: WASD/Arrows move, Space to attack, P pause. Mobile: joystick + A.</div>
+</div>
+
+<script src="game.js"></script>
+<script>
+  if ('serviceWorker' in navigator) {
+    window.addEventListener('load', ()=>{
+      navigator.serviceWorker.register('service-worker.js');
+    });
+  }
+</script>
+</body>
+</html>
