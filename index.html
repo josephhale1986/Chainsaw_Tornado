@@ -1,0 +1,63 @@
+<!doctype html>
+<html lang="en">
+<head>
+<link rel="icon" href="favicon.ico">
+<meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1">
+<title>Chainsaw Tornado</title>
+<style>
+html,body{margin:0;background:#0e1620;color:#e6f2ff;font-family:system-ui}
+#menu{position:absolute;inset:0;display:flex;align-items:center;justify-content:center;background:#0e1620}
+.btn{background:#0009;border:2px solid #8fd3ff;color:#e6f2ff;font-size:20px;padding:10px 16px;border-radius:12px;cursor:pointer}
+#game{display:none;position:absolute;inset:0;margin:auto;max-width:960px;max-height:540px;background:#0f1722;border:2px solid #2a3b52;border-radius:12px}
+.bossbar{position:absolute;top:10px;left:50%;transform:translateX(-50%);width:70%;height:18px;border:2px solid #3a0f0f;background:#220d0d;border-radius:10px;display:none}
+.bossbar>.fill{height:100%;background:linear-gradient(90deg,#ff5757,#ff2323);border-radius:8px;width:100%}
+.bossbar>.label{position:absolute;left:8px;top:-22px;font-weight:700;color:#ffc1c1;text-shadow:0 1px 2px #000}
+.info{position:absolute;top:10px;left:10px;color:#a3b9cc;font-size:14px;background:#0006;padding:6px 10px;border-radius:8px;border:1px solid #2a3b52}
+</style>
+</head>
+<body>
+<div id="menu"><button class="btn" id="startBtn">Start</button></div>
+<canvas id="game" tabindex="0" width="960" height="540"></canvas>
+<div class="bossbar" id="bossbar"><div class="label" id="bosslabel">BOSS</div><div class="fill" id="bossfill"></div></div>
+<div class="info">WASD/Arrows move · Space melee · E throw axe · P pause</div>
+<audio id="bgmMain" src="assets/bgm_main.wav" preload="auto" loop></audio>
+<audio id="bgmBoss" src="assets/bgm_boss.wav" preload="auto" loop></audio>
+<script src="game.run.js?v=20250827e"></script>
+
+<script>
+(function(){
+  function startGame(){
+    var menu = document.getElementById('menu');
+    var canvas = document.getElementById('game');
+    if(menu) menu.style.display = 'none';
+    if(canvas){ canvas.style.display = 'block'; if(canvas.focus) canvas.focus(); }
+    try{
+      var bgmMain = document.getElementById('bgmMain');
+      var bgmBoss = document.getElementById('bgmBoss');
+      if(bgmBoss){ bgmBoss.pause(); bgmBoss.currentTime = 0; }
+      if(bgmMain){ bgmMain.volume = 0.6; bgmMain.currentTime = 0; bgmMain.play().catch(function(){}); }
+    }catch(e){}
+  }
+  function bind(){
+    var btn = document.getElementById('startBtn');
+    if(btn){
+      btn.addEventListener('click', startGame);
+      btn.addEventListener('touchend', function(e){ e && e.preventDefault && e.preventDefault(); startGame(); }, { passive:false });
+    }
+    window.addEventListener('keydown', function(e){ if(e.key==='Enter'||e.key===' '){ startGame(); } });
+    var unlock=function(){
+      try{
+        var a1=document.getElementById('bgmMain'), a2=document.getElementById('bgmBoss');
+        [a1,a2].forEach(function(a){ if(a){ try{ a.muted=false; a.play().then(function(){a.pause();}).catch(function(){});}catch(e){} } });
+      }catch(e){}
+      window.removeEventListener('pointerdown', unlock, true);
+      window.removeEventListener('keydown', unlock, true);
+    };
+    window.addEventListener('pointerdown', unlock, true);
+    window.addEventListener('keydown', unlock, true);
+  }
+  if(document.readyState==='loading'){ document.addEventListener('DOMContentLoaded', bind); } else { bind(); }
+})();
+</script>
+
+</body></html>
