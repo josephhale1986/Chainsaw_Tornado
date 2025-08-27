@@ -84,7 +84,7 @@ function update(dt){
 
   for(let i=st.enemies.length-1;i>=0;i--){ const e=st.enemies[i];
     if(e.type==='tornado'||e.type==='zig'){ e.x+= (e.vx||-2.2)*dt/16; if(e.type==='zig'){ e.y+=(e.vy||1.2)*dt/16; if(e.y<80||e.y>H-120) e.vy=-e.vy; } e.f=(e.f||0)+dt*0.02; }
-    else if(e.type==='mini'){ if(!st.boss){ st.boss=true; st.bossEntity=e; bossbar.style.display='block'; bosslabel.textContent='Elemental Storm Titan'; }
+     else if (e.type === 'mini'){ if(!st.boss){ st.boss=true; st.bossEntity=e; bossbar.style.display='block'; bosslabel.textContent='Elemental Storm Titan'; }
       e.x += (-1.0)*dt/16; e.atk=(e.atk||0)+dt; const cadence = (e.hp/e.max<0.25)? 1800: 2600;
       if(e.atk>cadence && e.tele<=0){ e.tele=600; e.atk=0; }
       if(e.tele>0){ e.tele-=dt; if(e.tele<=0){ const shots=(e.hp/e.max<0.25)?3:2; for(let k=0;k<shots;k++){ const ang=(-0.2+k*0.2)+(Math.random()*0.2-0.1);
