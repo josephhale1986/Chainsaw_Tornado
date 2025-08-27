@@ -1,0 +1,8 @@
+{
+  "name": "Chainsaw Tornado (Hotfix)",
+  "short_name": "CT Hotfix",
+  "start_url": ".",
+  "display": "standalone",
+  "background_color": "#0e1620",
+  "theme_color": "#8fd3ff"
+}
